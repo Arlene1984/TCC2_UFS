@@ -13,7 +13,8 @@ reserved = {
 	'PREFIX':'PREFIX',
 	'true': 'true',
     'false': 'false',
-	' a':' a',
+	' a':'a',
+    'int':'INT',
 
 }
 
@@ -57,6 +58,8 @@ tokens = [
     'HEX',
     'PERCENT',
     'PN_LOCAL_ESC',
+    'INTEGER',
+
     
     
 ] + list(reserved.values())
@@ -99,13 +102,13 @@ t_MULT          = r'\*'
 
  
 def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    r'[a-zA-Z][A-Za-z]*[0-9]*'
     t.type = reserved.get(t.value, 'ID')    # Check for reserved words
     return t
 
 # A regular expression rule with some action code
 def t_HEX(t):
-    r'[0-9][0-9_a-f][0-9_A-F]'
+    r'[0-9][a-f][A-F]'
     t.type = reserved.get(t.value, 'HEX')   
     return t
 
@@ -113,21 +116,23 @@ def t_PERCENT(t):
     r'[MOD_HEX_HEX]'
     t.type = reserved.get(t.value, 'PERCENT')   
     return t
-    
-def t_PN_LOCAL_ESC(t):
-    r'
 
-def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
+int=INT
+def t_NUMBER(t,):
+    r'd+'
+    t.value =int(t.value)
     return t
 
+def t_INTEGER(t):
+    r'[+-][0-9][0-9]*'
+    t_value = int(t.value)
+    return t
 def t_STRING(t):
     r'\"([^\\\n]|(\\.))*?\"'
     t.type = reserved.get(t.value, 'STRING')
     return t
 
-# Indentacao # Wedson Help
+# Indentacao 
 ArrayTabulacao = [0]
 IndicePosicao = 0
 ConstTabulacao = 8
