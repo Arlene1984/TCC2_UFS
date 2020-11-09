@@ -98,15 +98,13 @@ t_CIFRAO        = r'\$'
 t_PLUS          = r'\+'
 t_MULT          = r'\*'
 
-
-
  
 def t_ID(t):
     r'[a-zA-Z][A-Za-z]*[0-9]*'
-    t.type = reserved.get(t.value, 'ID')    # Check for reserved words
+    t.type = reserved.get(t.value, 'ID')
     return t
 
-# A regular expression rule with some action code
+
 def t_HEX(t):
     r'[0-9][a-f][A-F]'
     t.type = reserved.get(t.value, 'HEX')   
@@ -117,7 +115,7 @@ def t_PERCENT(t):
     t.type = reserved.get(t.value, 'PERCENT')   
     return t
 
-int=INT
+
 def t_NUMBER(t,):
     r'd+'
     t.value =int(t.value)
